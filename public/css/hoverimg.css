@@ -1,0 +1,17 @@
+
+.image:hover {
+    margin-top:20px;
+    padding-top:40px;
+    -webkit-transform:scale(2.5);
+    transform:scale(2.5);
+}
+/* .contenedor {overflow:hidden;} */
+
+/* .hoverimg{
+    transform:scale(1);
+}
+
+.hoverimg:hover{
+    display:block;
+    transform:scale(1.2);
+} */

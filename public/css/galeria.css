@@ -1,0 +1,20 @@
+.galeria{
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: row;
+}
+
+.card .card-title{
+    text-align: center;
+}
+
+.galeria a{
+    display:flex; 
+     flex-wrap: wrap;
+justify-content: space-around;
+margin:5px 10px;
+
+}
+
+
+

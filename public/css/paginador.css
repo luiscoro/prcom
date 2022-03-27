@@ -1,0 +1,23 @@
+.pagination li {
+    margin-left: .25rem;
+    margin-right: .25rem;
+  }
+  
+  .pagination li a {
+    border-radius: .25rem;
+    border: none;
+    min-width: 2.25rem;
+    text-align: center;
+    color: #4f5464;
+  }
+  
+  .pagination li.active a,
+  .pagination li a:hover {
+    background-color: #c91d8a !important;
+    color: #fff;
+  }
+  
+  .pagination [aria-current] {
+    font-weight: bold;
+    background-color: #cc33ff;
+  }
