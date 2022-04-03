@@ -58,6 +58,54 @@
                                 </span>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label>Apellidos</label>
+
+                            <input id="apellidos" type="text" class="form-control @error('apellidos') is-invalid @enderror"
+                                name="apellidos" value="{{ old('apellidos') }}" required autocomplete="apellidos" autofocus>
+
+                            @error('apellidos')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>Teléfono</label>
+
+                            <input id="telefono" type="tel" class="form-control @error('telefono') is-invalid @enderror"
+                             name="telefono" value="{{ old('telefono') }}" required autocomplete="telefono" autofocus>
+                            {{-- <small>Formato: 123-456-789</small> --}}
+                            @error('telefono')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Fecha de nacimiento</label>
+
+                            <input id="fecha_nacimiento" type="date" class="form-control @error('fecha_nacimiento') is-invalid @enderror"
+                            @php
+                            $anio_actual= date('Y');
+                            $anio_actual = intval($anio_actual);
+                            $anio_maximo = $anio_actual-18;
+                            @endphp    
+                            name="fecha_nacimiento" min="1975-01-01"  max="{{$anio_maximo}}-01-31" value="{{ old('fecha_nacimiento') }}" required autocomplete="fecha_nacimiento" autofocus>
+
+                            @error('fecha_nacimiento')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+
                         <div class="form-group">
                             <label>Correo electrónico</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"

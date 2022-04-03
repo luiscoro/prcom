@@ -114,58 +114,58 @@
                                                 anuncio</small></label>
                                                 <select required name="ciudad" class="form-control">
                                                     <option value="">Elige Provincia</option>
-                                                    <option value="Álava/Araba">Álava/Araba</option>
-                                                    <option value="Albacete">Albacete</option>
-                                                    <option value="Alicante">Alicante</option>
-                                                    <option value="Almería">Almería</option>
-                                                    <option value="Asturias">Asturias</option>
-                                                    <option value="Ávila">Ávila</option>
-                                                    <option value="Badajoz">Badajoz</option>
-                                                    <option value="Baleares">Baleares</option>
-                                                    <option value="Barcelona">Barcelona</option>
-                                                    <option value="Burgos">Burgos</option>
-                                                    <option value="Cáceres">Cáceres</option>
-                                                    <option value="Cádiz">Cádiz</option>
-                                                    <option value="Cantabria">Cantabria</option>
-                                                    <option value="Castellón">Castellón</option>
-                                                    <option value="Ceuta">Ceuta</option>
-                                                    <option value="Ciudad Real">Ciudad Real</option>
-                                                    <option value="Córdoba">Córdoba</option>
-                                                    <option value="Cuenca">Cuenca</option>
-                                                    <option value="Gerona/Girona">Gerona/Girona</option>
-                                                    <option value="Granada">Granada</option>
-                                                    <option value="Guadalajara">Guadalajara</option>
-                                                    <option value="Guipúzcoa/Gipuzkoa">Guipúzcoa/Gipuzkoa</option>
-                                                    <option value="Huelva">Huelva</option>
-                                                    <option value="Huesca">Huesca</option>
-                                                    <option value="Jaén">Jaén</option>
-                                                    <option value="La Coruña/A Coruña">La Coruña/A Coruña</option>
-                                                    <option value="La Rioja">La Rioja</option>
-                                                    <option value="Las Palmas">Las Palmas</option>
-                                                    <option value="León">León</option>
-                                                    <option value="Lérida/Lleida">Lérida/Lleida</option>
-                                                    <option value="Lugo">Lugo</option>
-                                                    <option value="Madrid">Madrid</option>
-                                                    <option value="Málaga">Málaga</option>
-                                                    <option value="Melilla">Melilla</option>
-                                                    <option value="Murcia">Murcia</option>
-                                                    <option value="Navarra">Navarra</option>
-                                                    <option value="Orense/Ourense">Orense/Ourense</option>
-                                                    <option value="Palencia">Palencia</option>
-                                                    <option value="Pontevedra">Pontevedra</option>
-                                                    <option value="Salamanca">Salamanca</option>
-                                                    <option value="Segovia">Segovia</option>
-                                                    <option value="Sevilla">Sevilla</option>
-                                                    <option value="Soria">Soria</option>
-                                                    <option value="Tarragona">Tarragona</option>
-                                                    <option value="Tenerife">Tenerife</option>
-                                                    <option value="Teruel">Teruel</option>
-                                                    <option value="Toledo">Toledo</option>
-                                                    <option value="Valencia">Valencia</option>
-                                                    <option value="Valladolid">Valladolid</option>
-                                                    <option value="Vizcaya/Bizkaia">Vizcaya/Bizkaia</option>
-                                                    <option value="Zamora">Zamora</option>
-                                                    <option value="Zaragoza">Zaragoza</option>
+                                                    <option value="Álava/Araba" {{ old('ciudad') == 'Álava/Araba' ? 'selected' : '' }}>Álava/Araba</option>
+                                                    <option value="Albacete"{{ old('ciudad') == 'Albacete' ? 'selected' : '' }}>Albacete</option>
+                                                    <option value="Alicante"{{ old('ciudad') == 'Alicante' ? 'selected' : '' }}>Alicante</option>
+                                                    <option value="Almería"{{ old('ciudad') == 'Almería' ? 'selected' : '' }}>Almería</option>
+                                                    <option value="Asturias"{{ old('ciudad') == 'Asturias' ? 'selected' : '' }}>Asturias</option>
+                                                    <option value="Ávila"{{ old('ciudad') == 'Ávila' ? 'selected' : '' }}>Ávila</option>
+                                                    <option value="Badajoz"{{ old('ciudad') == 'Badajoz' ? 'selected' : '' }}>Badajoz</option>
+                                                    <option value="Baleares"{{ old('ciudad') == 'Baleares' ? 'selected' : '' }}>Baleares</option>
+                                                    <option value="Barcelona"{{ old('ciudad') == 'Barcelona' ? 'selected' : '' }}>Barcelona</option>
+                                                    <option value="Burgos"{{ old('ciudad') == 'Burgos' ? 'selected' : '' }}>Burgos</option>
+                                                    <option value="Cáceres"{{ old('ciudad') == 'Cáceres' ? 'selected' : '' }}>Cáceres</option>
+                                                    <option value="Cádiz"{{ old('ciudad') == 'Cádiz' ? 'selected' : '' }}>Cádiz</option>
+                                                    <option value="Cantabria"{{ old('ciudad') == 'Cantabria' ? 'selected' : '' }}>Cantabria</option>
+                                                    <option value="Castellón"{{ old('ciudad') == 'Castellón' ? 'selected' : '' }}>Castellón</option>
+                                                    <option value="Ceuta"{{ old('ciudad') == 'Ceuta' ? 'selected' : '' }}>Ceuta</option>
+                                                    <option value="Ciudad Real"{{ old('ciudad') == 'Ciudad' ? 'selected' : '' }}>Ciudad Real</option>
+                                                    <option value="Córdoba"{{ old('ciudad') == 'Córdoba' ? 'selected' : '' }}>Córdoba</option>
+                                                    <option value="Cuenca"{{ old('ciudad') == 'Cuenca' ? 'selected' : '' }}>Cuenca</option>
+                                                    <option value="Gerona/Girona"{{ old('ciudad') == 'Gerona/Girona' ? 'selected' : '' }}>Gerona/Girona</option>
+                                                    <option value="Granada"{{ old('ciudad') == 'Granada' ? 'selected' : '' }}>Granada</option>
+                                                    <option value="Guadalajara"{{ old('ciudad') == 'Guadalajara' ? 'selected' : '' }}>Guadalajara</option>
+                                                    <option value="Guipúzcoa/Gipuzkoa"{{ old('ciudad') == 'Guipúzcoa/Gipuzkoa' ? 'selected' : '' }}>Guipúzcoa/Gipuzkoa</option>
+                                                    <option value="Huelva"{{ old('ciudad') == 'Huelva' ? 'selected' : '' }}>Huelva</option>
+                                                    <option value="Huesca"{{ old('ciudad') == 'Huesca' ? 'selected' : '' }}>Huesca</option>
+                                                    <option value="Jaén"{{ old('ciudad') == 'Jaén' ? 'selected' : '' }}>Jaén</option>
+                                                    <option value="La Coruña/A Coruña"{{ old('ciudad') == 'La Coruña/ A Coruña' ? 'selected' : '' }}>La Coruña/A Coruña</option>
+                                                    <option value="La Rioja"{{ old('ciudad') == 'La Rioja' ? 'selected' : '' }}>La Rioja</option>
+                                                    <option value="Las Palmas"{{ old('ciudad') == 'Las Palmas' ? 'selected' : '' }}>Las Palmas</option>
+                                                    <option value="León"{{ old('ciudad') == 'León' ? 'selected' : '' }}>León</option>
+                                                    <option value="Lérida/Lleida"{{ old('ciudad') == 'Lérida/Lleida' ? 'selected' : '' }}>Lérida/Lleida</option>
+                                                    <option value="Lugo"{{ old('ciudad') == 'Lugo' ? 'selected' : '' }}>Lugo</option>
+                                                    <option value="Madrid"{{ old('ciudad') == 'Madrid' ? 'selected' : '' }}>Madrid</option>
+                                                    <option value="Málaga"{{ old('ciudad') == 'Málaga' ? 'selected' : '' }}>Málaga</option>
+                                                    <option value="Melilla"{{ old('ciudad') == 'Melilla' ? 'selected' : '' }}>Melilla</option>
+                                                    <option value="Murcia"{{ old('ciudad') == 'Murcia' ? 'selected' : '' }}>Murcia</option>
+                                                    <option value="Navarra"{{ old('ciudad') == 'Navarra' ? 'selected' : '' }}>Navarra</option>
+                                                    <option value="Orense/Ourense"{{ old('ciudad') == 'Orense/Ourense' ? 'selected' : '' }}>Orense/Ourense</option>
+                                                    <option value="Palencia"{{ old('ciudad') == 'Palencia' ? 'selected' : '' }}>Palencia</option>
+                                                    <option value="Pontevedra"{{ old('ciudad') == 'Pontevedra' ? 'selected' : '' }}>Pontevedra</option>
+                                                    <option value="Salamanca"{{ old('ciudad') == 'Salamanca' ? 'selected' : '' }}>Salamanca</option>
+                                                    <option value="Segovia"{{ old('ciudad') == 'Segovia' ? 'selected' : '' }}>Segovia</option>
+                                                    <option value="Sevilla"{{ old('ciudad') == 'Sevilla' ? 'selected' : '' }}>Sevilla</option>
+                                                    <option value="Soria"{{ old('ciudad') == 'Soria' ? 'selected' : '' }}>Soria</option>
+                                                    <option value="Tarragona"{{ old('ciudad') == 'Tarragona' ? 'selected' : '' }}>Tarragona</option>
+                                                    <option value="Tenerife"{{ old('ciudad') == 'Tenerife' ? 'selected' : '' }}>Tenerife</option>
+                                                    <option value="Teruel"{{ old('ciudad') == 'Teruel' ? 'selected' : '' }}>Teruel</option>
+                                                    <option value="Toledo"{{ old('ciudad') == 'Toledo' ? 'selected' : '' }}>Toledo</option>
+                                                    <option value="Valencia"{{ old('ciudad') == 'Valencia' ? 'selected' : '' }}>Valencia</option>
+                                                    <option value="Valladolid"{{ old('ciudad') == 'Valladolid' ? 'selected' : '' }}>Valladolid</option>
+                                                    <option value="Vizcaya/Bizkaia"{{ old('ciudad') == 'Vizcaya/Bizkaia' ? 'selected' : '' }}>Vizcaya/Bizkaia</option>
+                                                    <option value="Zamora"{{ old('ciudad') == 'Zamora' ? 'selected' : '' }}>Zamora</option>
+                                                    <option value="Zaragoza"{{ old('ciudad') == 'Zaragoza' ? 'selected' : '' }}>Zaragoza</option>
                                                   </select>
                                     </div>
                                 </div>
@@ -193,18 +193,7 @@
                                         </div>
 
                                     </div>
-                                    <!-- end row -->
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                            <label class="control-label">Tu edad</label>
-                                            <input class="form-control" value="{{old('edad')}}" name="edad" placeholder="" type="number">
-                                        </div>
-                                        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                                            <label class="control-label">Tu teléfono<small></small></label>
-                                            <input class="form-control" value="{{old('telefono')}}" name="telefono" placeholder="" type="tel">
-                                        </div>
-                                    </div>
-                                    <!-- end row -->
+                                  
 
                                     <div class="row">
                                         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">

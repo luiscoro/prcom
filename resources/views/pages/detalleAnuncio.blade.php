@@ -113,7 +113,7 @@
                                     class="ad-box col-md-3 col-sm-3 col-xs-12">
                                     <i class="fa fa-share-alt"></i> <span class="hidetext">Compartir</span>
                                 </div>
-                                <a class="ad-box col-md-3 col-sm-3 col-xs-12" href="tel:+34 {{$anuncio->telefono}}"><i
+                                <a class="ad-box col-md-3 col-sm-3 col-xs-12" href="tel:+34 {{$anuncio->user->telefono}}"><i
                                         class="fa fa-phone active"></i>
                                     <span class="hidetext">Contactar</span></a>
                                 <div data-target=".report-quote" data-toggle="modal"
@@ -131,7 +131,7 @@
                                     class="ad-box col-md-4 col-sm-4 col-xs-12">
                                     <i class="fa fa-share-alt"></i> <span class="hidetext">Compartir</span>
                                 </div>
-                                <a class="ad-box col-md-4 col-sm-4 col-xs-12" href="tel:+34 {{$anuncio->telefono}}"><i
+                                <a class="ad-box col-md-4 col-sm-4 col-xs-12" href="tel:+34 {{$anuncio->user->telefono}}"><i
                                         class="fa fa-phone active"></i>
                                     <span class="hidetext">Contactar</span></a>
                                 <div data-target=".report-quote" data-toggle="modal"
@@ -166,7 +166,7 @@
                                         <span><strong>Edad</strong> :</span> {{ $anuncio->edad }}
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Contacto</strong> :</span>{{ $anuncio->telefono }}
+                                        <span><strong>Contacto</strong> :</span>{{ $anuncio->user->telefono }}
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
                                         <span><strong>Publicado</strong> :</span>{{ $anuncio->created_at }}

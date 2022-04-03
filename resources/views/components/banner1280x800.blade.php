@@ -1,10 +1,10 @@
 {{-- <div id="video"> --}}
    <div id="banner">
-      <div id="video">
+      {{-- <div id="video">
          <video autoplay muted loop id="myVideo" >
             <source src="{{asset('images/bg_pasion.mp4')}}" type="video/mp4">
           </video>
-      </div>
+      </div> --}}
    
 
     <div class="container">

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Solicitud;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Image;
+use App\Models\Solicitud;
+use Illuminate\Http\Request;
+use App\Events\EventoVerificacion;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
@@ -75,6 +76,20 @@ class SolicitudController extends Controller
         return redirect('admin/solicitud')->with('mensaje','Solicitud eliminada!');
     }
 
+    public function aprobacionCuenta($user_id) 
+    {
+        $respuesta = 1; // si 
+
+        event(new EventoVerificacion($respuesta,$user_id));
+    }
+
+    public function desaprobacionCuenta($user_id) 
+    {
+        $respuesta = 0; // si 
+
+        event(new EventoVerificacion($respuesta,$user_id));
+    }
+
     public function aprobarCuenta($id){
         $usuario = User::findOrFail($id);
         $cta_validada = $usuario['cta_validada'];
@@ -82,11 +97,13 @@ class SolicitudController extends Controller
             $user = DB::table('users')
             ->where('id', $id)
             ->update(['cta_validada' => 'Si']);
+            $this->aprobacionCuenta($id);
         }
         if($cta_validada=="Si"){
             $user = DB::table('users')
             ->where('id', $id)
             ->update(['cta_validada' => 'No']);
+            $this->desaprobacionCuenta($id);
         }
        
       

@@ -759,9 +759,9 @@ ul {
 .transparent-header .mega-menu > section.menu-list-items .menu-links > li > a {
 	color: #fff;
 }
-.transparent-header .mega-menu.desktopTopFixed .menu-list-items {
+/* .transparent-header .mega-menu.desktopTopFixed .menu-list-items {
 	background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
-}
+} */
 /* =-=-=-=-=-=-=  Header Style 2  =-=-=-=-=-=-= */
 .header {
 	padding: 30px 0;
@@ -815,13 +815,13 @@ ul {
 .main-menu .mega-menu .menu-logo > li > a img {
 	display: none;
 }
-.main-menu .mega-menu.desktopTopFixed .menu-list-items {
+/* .main-menu .mega-menu.desktopTopFixed .menu-list-items {
 	background: #363c48 none repeat scroll 0 0;
 	padding: 15px 0;
-}
-.main-menu .mega-menu.desktopTopFixed .menu-list-items .menu-search-bar {
+} */
+/* .main-menu .mega-menu.desktopTopFixed .menu-list-items .menu-search-bar {
 	display: block !important;
-}
+} */
 /* =-=-=-=-=-=-= Home With Category Tabs =-=-=-=-=-=-= */
 .home-tabs {
 	margin-top: -58px;

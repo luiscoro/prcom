@@ -20,6 +20,20 @@
             </div>
         </div>
     </div>
+    @foreach (auth()->user()->unreadNotifications as $notification)
+    @if($notification->type=="App\Notifications\NotificacionVerificacion")
+    <div class="alert alert-success alert-dismissible" role="alert">
+        @if($notification->data['respuesta']==1)
+        Felicidades, tu cuenta ha sido verificada con exito.
+        @else
+        Lo sentimos, tu cuenta no ha sido verificada, te recomendamos verificar que el código que enviaste sea el correcto.
+        @endif
+        <a href="{{route('marcar_notificacion_leida', [$notification->id]) }}" type="button" class="close" data-dismiss="alert" role="alert">
+            <span aria-button="true">&times;</span>
+        </a>
+    </div>
+    @endif
+    @endforeach
     <!-- Small Breadcrumb -->
     <!-- =-=-=-=-=-=-= Main Content Area =-=-=-=-=-=-= -->
     <div class="main-content-area clearfix">
@@ -48,7 +62,7 @@
                                         <i class="fa fa-envelope"></i>{{$user->email}}
                                     </li>
                                     <li>
-                                        <i class="fa fa-phone"></i>{{$perfil->telefono}}
+                                        <i class="fa fa-phone"></i>{{$user->telefono}}
                                     </li>
                                     <li>
                                         <i class="fas fa-coins"></i>{{$perfil->creditos}} créditos
@@ -59,6 +73,8 @@
                                 <li class="active"><a href="">Perfil</a></li>
                                 <li><a href="{{route('cliente.misAnuncios')}}">Mis anuncios</a></li>
                                 <li><a href="{{route('cliente.misOrdenes')}}">Mis ordenes</a></li>
+                                <li><a href="{{route('cliente.crearAnuncio')}}">Publicar anuncio</a></li>
+                                <li><a href="{{route('cliente.creditos')}}">Comprar creditos</a></li>
                                 {{-- <li><a href="messages.html">Messages</a></li> --}}
                                 <li><a href="{{route('logout')}}">Cerrar sesión</a></li>
                             </ul>
@@ -108,7 +124,11 @@
                                         <dl class="dl-horizontal">
                                             <dt><strong>Su nombre </strong></dt>
                                             <dd>
-                                                {{$perfil->nombre}}
+                                                {{$user->name}}
+                                            </dd>
+                                            <dt><strong>Su edad </strong></dt>
+                                            <dd>
+                                                {{$user->edad}}
                                             </dd>
                                             <dt><strong>Dirección de correo </strong></dt>
                                             <dd>
@@ -116,7 +136,7 @@
                                             </dd>
                                             <dt><strong>Número de teléfono </strong></dt>
                                             <dd>
-                                                {{$perfil->telefono}}
+                                                {{$user->telefono}}
                                             </dd>
                                             <a>
                                                 <dt><strong>Usuario verificado: </strong></dt>
@@ -126,7 +146,9 @@
                                             <dd>
                                                 {{$user->cta_validada}}
                                             </dd>
+                                            @if(auth()->user()->cta_validada=="No")
                                             <a href="{{route('home.getValidarCuenta')}}"> ¿Deseas validar tu cuenta?</a>
+                                            @endif
                                         </dl>
                                     </div>
                                     <div class="profile-edit tab-pane fade" id="edit">
@@ -138,20 +160,28 @@
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <label>Tu nombre completo <span class="color-red">*</span> </label>
-                                                    <input name="nombre" type="text" value="{{$perfil->nombre}}"
+                                                    <label>Nombres<span class="color-red">*</span> </label>
+                                                    <input name="nombre" type="text" value="{{$user->name}}"
+                                                        class="form-control margin-bottom-20">
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Apellidos<span class="color-red">*</span> </label>
+                                                    <input name="apellidos" type="text" value="{{$user->apellidos}}"
                                                         class="form-control margin-bottom-20">
                                                 </div>
 
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <label>Número de contacto <span class="color-red">*</span></label>
-                                                    <input name="telefono" type="text" value="{{$perfil->telefono}}"
+                                                    <label>Edad <span class="color-red">*</span></label>
+                                                    <input name="edad" min="18" max="70" type="number" value="{{$user->edad}}"
                                                         class="form-control margin-bottom-20">
                                                 </div>
+
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <label>DNI <span class="color-red">*</span></label>
-                                                    <input name="dni" type="text" value="{{$perfil->dni}}" class="form-control margin-bottom-20">
+                                                    <label>Número de móvil <span class="color-red">*</span></label>
+                                                    <input name="telefono" type="text" value="{{$user->telefono}}"
+                                                        class="form-control margin-bottom-20">
                                                 </div>
+                                                
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <label>Foto <span class="color-red">*</span></label>
 

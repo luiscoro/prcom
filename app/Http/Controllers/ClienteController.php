@@ -322,8 +322,6 @@ return back()->with('mensaje','Se te han agregado 20 créditos gratis a tu cuent
             'categoria_id' => 'required',
             'ciudad' => 'required|String|max:100',
             'direccion' => 'required|String|max:100',
-            'edad' => 'required|numeric|min:18',
-            'telefono' => 'required|string|max:10|min:10',
             'paquete_id' => 'required'
         ];
         $mensaje = [
@@ -333,10 +331,6 @@ return back()->with('mensaje','Se te han agregado 20 créditos gratis a tu cuent
             'categoria_id.required' => 'La categoría es requerida',
             'ciudad.required' => 'La provincia es requerida',
             'ciudad.max'=>'El nombre de la provincia es demasiado largo',
-            'edad.required' => 'La edad es requerida',
-            'edad.min'=> 'La edad no puede ser menor a 18',
-            'telefono.min'=>'El teléfono no debe tener menos de 10 dígitos',
-            'telefono.max'=>'El teléfono no debe tener mas de 10 dígitos',
             'direccion.required' => 'La dirección es requerida',
             'direccion.max'=>'La direccion no debe tener mas de 100 caracteres',
             'descripcion.required' => 'La descripción es requerida',
@@ -347,8 +341,8 @@ return back()->with('mensaje','Se te han agregado 20 créditos gratis a tu cuent
         $anuncio = new Anuncio;
         $anuncio->titulo = e($request->titulo);
         $anuncio->ciudad = e($request->ciudad);
-        $anuncio->telefono = e($request->telefono);
-        $anuncio->edad = e($request->edad);
+        // $anuncio->telefono = e($request->telefono);
+        // $anuncio->edad = e($request->edad);
         $anuncio->direccion = e($request->direccion);
         $anuncio->descripcion = e($request->descripcion);
         $anuncio->reactivacion = Carbon::now()->addHours($timereact);
@@ -400,29 +394,36 @@ return back()->with('mensaje','Se te han agregado 20 créditos gratis a tu cuent
 
     public function editarMiPerfil(Request $request)
     {
+        // dd($request);
         $campos = [
-            'dni' => 'required|string|min:10',
             'nombre' => 'required|min:3',
-            'telefono' => 'required',
-            'foto' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
+            'apellidos' => 'required',
+            'telefono' => 'required|min:9|max:9',
+            'foto' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'edad'=>'required',
         ];
         $advertencia = [
             'required' => 'El :attribute es requerido',
             'nombre.min' => 'El nombre debe tener un mínimo de 3 caracteres',
-            // 'telefono.min'=>'El telefono debe tener 10 dígitos',
-            'min' => 'El :attribute no debe tener menos de :min caracteres',
-            'telefono.required' => 'El teléfono es requerido',
-            'dni.required' => 'El dni es requerido',
-            'foto.required' => 'La foto es requerida',
+            'apellidos.required'=>'El apellido es requerido',
+            'telefono.min'=>'El número de móvil debe tener 9 dígitos',
+            'telefono.max'=>'El número de móvil debe tener 9 dígitos',
+      
+            
+            'edad.required'=>'La edad es requerida',
+            'telefono.required' => 'El número de móvil es requerido',
+            // 'foto.required' => 'La foto es requerida',
         ];
 
         $this->validate($request, $campos, $advertencia);
         $perfil = Perfil::where('user_id', Auth::id())->first();
         $user = User::find(Auth::id());
-        $perfil->update([
-            "dni" => $request['dni'],
-            "telefono" => $request['telefono'],
-            "nombre" => $request['nombre'],
+       
+        $user->update([
+            "name"=>$request->nombre,
+            "apellidos"=>$request->apellidos,
+            "edad"=>$request->edad,
+            "telefono"=>$request->telefono,
         ]);
 
         if($request['estado_comentario']=="1"){
@@ -524,26 +525,25 @@ return back()->with('mensaje','Se te han agregado 20 créditos gratis a tu cuent
 
     public function comprarCredito(Request $request)
     {
-      
+    //   dd($request);
       //este validate al redireccionar en caso de error, hara que recargue la pagina anterior,
       //pero como la anterior recibe data de la vista anterior, no puede recargarse vacia
-        $this->validate($request,
-            [
-                'telefono'=>'required|string|min:10|max:10',
-                'dni'=>'required|string|min:10|max:10',
-                'nombre_completo'=>'required|string|min:20|max:60',
-            ],
-            ['telefono.required'=>'El teléfono es requerido',
-             'telefono.min'=>'El teléfono no debe tener menos de 10 digitos',
-             'telefono.max'=>'El teléfono no debe tener mas de 10 digitos',
-             'dni.required'=>'El DNI es requerido',
-             'dni.min'=>'El dni no debe tener menos de 10 digitos',
-             'dni.max'=>'El dni no debe tener mas de 10 digitos',
-             'nombre_completo.required'=>'El nombre completo es requerido',
-             'nombre_completo.max'=>'El nombre completo es muy largo',
-             'nombre_completo.min'=>'El nombre completo es muy corto'
-        ]);
-       
+        // $this->validate($request,
+        //     [
+        //         'telefono'=>'required|string|min:10|max:10',
+           
+        //     ],
+        //     ['telefono.required'=>'El teléfono es requerido',
+        //      'telefono.min'=>'El teléfono no debe tener menos de 10 digitos',
+        //      'telefono.max'=>'El teléfono no debe tener mas de 10 digitos',
+        //      'dni.required'=>'El DNI es requerido',
+        //      'dni.min'=>'El dni no debe tener menos de 10 digitos',
+        //      'dni.max'=>'El dni no debe tener mas de 10 digitos',
+        //      'nombre_completo.required'=>'El nombre completo es requerido',
+        //      'nombre_completo.max'=>'El nombre completo es muy largo',
+        //      'nombre_completo.min'=>'El nombre completo es muy corto'
+        // ]);
+    //    dd("hola");
         $paymentPlatform = PaymentPlatformResolver::resolveService("paypal");
         session()->put('paymentPlatformId',"paypal");
 return $paymentPlatform->handlePayment($request);
@@ -552,29 +552,29 @@ return $paymentPlatform->handlePayment($request);
 
 
     public function redireccion(){
-
+// dd("holasd");
         $datasesion = session('data');
              $orden =  Orden::create([
             "subtotal" => $datasesion[0]["subtotal"],
             "telefono" => $datasesion[0]["telefono"],
             "cantidad_creditos"=>$datasesion[0]["cantidad_creditos"],
-            "dni" => $datasesion[0]["dni"],
             "nombre_completo" => $datasesion[0]["nombre_completo"],
             "fecha_orden" => Carbon::now(),
             "user_id" => Auth::id(),
         ]);
 
+
         $creditos_gratis=0;
         $user = auth()->user();
         $creditos_usuario = $user->perfil->creditos;
-        if($datasesion[0]["idcredito"]==0){
+        if($datasesion[0]["idcredito"]==0){//0 == gratis , -1 == pagado
             $creditos_gratis=20;
             DB::table('users')->where('id', $user->id)->update(['credito_gratis' => '1']);
         }
 
         $user->perfil->update([
             "creditos" => $creditos_usuario + $datasesion[0]["cantidad_creditos"]+$creditos_gratis,
-            "dni"=>$datasesion[0]["dni"],
+           
         ]); 
 
         Orden::make_order_notification($orden);
@@ -587,7 +587,7 @@ return $paymentPlatform->handlePayment($request);
 
     public function getPasarela(Request $request)
     {
-        
+            // dd($request);
         $idcredito = $request["idcredito"];
 
         $creditosx = $request["creditos"];

@@ -102,13 +102,17 @@ class HomeController extends Controller
         return view('pages.detalleAnuncio', compact('anuncio', 'categorias2'));
     }
 
-
+//REGISTRO DE CUENTA
     protected function postValidarCuenta(Request $request)
-    {
+{
         $campos = [
             'password' => 'required|string|min:8',
             'email' => 'required|unique:users|email|min:8',
-            'name' => 'required|min:3'
+            'name' => 'required|min:3',
+            'apellidos' => 'required',
+            'fecha_nacimiento' => 'required',
+            'telefono'=>'required|min:9|max:9'
+            
         ];
         $advertencia = [
             'required' => 'El :attribute es requerido',
@@ -116,8 +120,13 @@ class HomeController extends Controller
             'password.min' => 'La contraseña debe tener un mínimo de 8 caracteres',
             'min' => 'El :attribute no debe tener menos de :min caracteres',
             'password.required' => 'La contraseña es requerida',
+            'fecha_nacimiento'=>'La fecha de nacimiento es requerida',
+            'telefono.required'=>'El número de móvil es requerido',
+            'telefono.min'=>'El número de móvil debe tener 9 digitos',
+            'telefono.max'=>'El número de móvil debe tener 9 digitos',
             'email.required' => 'El correo es necesario',
             'name.required' => 'El nombre es requerido y debe tener mas de 3 caracteres',
+            'apellidos.required' => 'Los apellidos es requerido',
         ];
 
         $this->validate($request, $campos, $advertencia);
@@ -126,24 +135,29 @@ class HomeController extends Controller
             return back()->with('advertencia', 'Asegurese de confirmar correctamente su contraseña');
 
         $opValidar = $request['opcionValidar'];
+
+        //calculo de la edad de la persona
+        $edad = Carbon::parse($request->fecha_nacimiento)->age;
+        if ($edad<18)
+            return back()->with('advertencia', 'Lo sentimos la edad mínima es 18 años.');
+
         $user = User::create([
             'name' => $request['name'],
+            'apellidos'=>$request->apellidos,
             'email' => $request['email'],
+            'edad'=>$edad,
+            'telefono'=>$request->telefono,
             'password' => Hash::make($request['password']),
         ]);
         //asignamos un rol de cliente al usuario que se registre
         $user->assignRole('Client');
         $user->perfil()->create([
-            'telefono' => '',
-            'dni' => '',
-            'nombre' => 'Edite su datos',
         ]); //creamos el perfil vacio
         Auth::login($user);
         //generamos el codigo random
 
-
         if ($opValidar == "No" && $user->hasRole('Client')) {
-            return redirect()->route('home.inicio');
+            return redirect()->route('cliente.miCuenta');
         } else {
             if ($opValidar == "Si" && $user->hasRole('Client')) {
                 $key = mt_rand(1000000000, 9999999999);
@@ -223,7 +237,7 @@ class HomeController extends Controller
             "public_id" => $public_id
         ]);
         Solicitud::make_solicitud_notification($solicitud);
-        return redirect()->route('home.inicio')->with('mensaje', 'Solicitud de registro enviada. Por la comodidad y bienestar de nuestros usuarios PassionReal se tomará unos minutos hasta validar sus datos.');
+        return redirect()->route('cliente.miCuenta')->with('mensaje', 'Solicitud de registro enviada. Por la comodidad y bienestar de nuestros usuarios PassionReal se tomará unos minutos hasta validar sus datos.');
     }
 }
 

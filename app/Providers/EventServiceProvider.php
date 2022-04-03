@@ -3,15 +3,17 @@
 namespace App\Providers;
 
 use App\Events\EventoOrden;
-use App\Listeners\ListenerOrden;
 use App\Events\EventoReporte;
 use App\Events\EventoSolicitud;
+use App\Events\EventoVerificacion;
+use App\Listeners\ListenerOrden;
 use App\Listeners\ListenerReporte;
 use App\Listeners\ListenerSolicitud;
+use App\Listeners\ListenerVerificacion;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -24,14 +26,17 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        EventoOrden::class =>[
+        EventoOrden::class => [
             ListenerOrden::class,
         ],
-        EventoReporte::class=>[
+        EventoReporte::class => [
             ListenerReporte::class,
         ],
-        EventoSolicitud::class=>[
+        EventoSolicitud::class => [
             ListenerSolicitud::class,
+        ],
+        EventoVerificacion::class => [
+            ListenerVerificacion::class,
         ]
     ];
 

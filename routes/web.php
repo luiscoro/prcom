@@ -84,7 +84,13 @@ Route::get('/notificacion/eliminar/{id}',[NotificacionController::class,'elimina
 // SOLICITUDES
 Route::get('marcar_solicitudes_leidas',[NotificacionController::class,'marcar_solicitudes_leidas'])->name('marcar_solicitudes_leidas');
 Route::get('marcar_solicitud_leida/{notificacion_id}/{solicitud_id}',[NotificacionController::class,'marcar_solicitud_leida'])->name('marcar_solicitud_leida');
+
+//NOTIFICACION DE VERIFICACION DE CUENTA
+Route::get('marcar_notificacion_leida/{notificacion_id}',[NotificacionController::class,'marcar_notificacion_leida'])->name('marcar_notificacion_leida');
+
+
 });
+
 
 // VISTAS DE ADMINISTRADOR
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()

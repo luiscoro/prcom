@@ -84,4 +84,15 @@ return redirect()->route('orden.index');
             return redirect()->route('admin.usuarioReportado', $reporte->user->id);
     }
 
+
+    // ==================== NOTIFICACIONES LEIDA =============== //
+
+    public function marcar_notificacion_leida($notificacion_id) {
+        auth()->user()->unreadNotifications->when($notificacion_id, function ($query) use
+            ($notificacion_id){
+                return $query->where('id',$notificacion_id);
+            })->markAsRead();
+            return redirect()->route('cliente.creditos');
+    }
+
 }

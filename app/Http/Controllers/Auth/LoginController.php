@@ -33,7 +33,7 @@ class LoginController extends Controller
         
             return route('admin.dashboard');
         } else {
-                return route('home.inicio');
+                return route('cliente.miCuenta');
         }
     }
 

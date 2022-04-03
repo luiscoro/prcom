@@ -119,7 +119,7 @@
                                                     <ul class="additional-info pull-right">
                                                         <li>
                                                             <a data-toggle="tooltip" title="Enviar whatsapp"
-                                                                    href="https://api.whatsapp.com/send?phone=+34{{$anuncio->telefono}}&text=Hola me encuentro interesado en tu anuncio {{$anuncio->titulo}}%20{{request()->fullUrl()}}" class="fab fa-whatsapp"></a>
+                                                                    href="https://api.whatsapp.com/send?phone=+34{{$anuncio->user->telefono}}&text=Hola me encuentro interesado en tu anuncio {{$anuncio->titulo}}%20{{request()->fullUrl()}}"><img src="{{asset('images/icons/whatsapp.png')}}"></a>
                                                         </li>
                                                     </ul>
                                                     <!-- Ad Meta Info -->
@@ -130,11 +130,11 @@
                                                         <li> <i class="fa fa-user"></i>{{ $anuncio->user->name }}
                                                         </li>
                                                         @if ($anuncio->user->cta_validada == 'Si')
-                                                        <li title="Cuenta verificada"><i class="fas fa-user-check"></i>
+                                                        <li title="Cuenta verificada"><i style="color:#2ECC71;" class="fas fa-user-check">  Verificado</i>
                                                         </li>
                                                         @else
-                                                        <li title="Cuenta no verificada"><i
-                                                                class="fas fa-user-times"></i></li>
+                                                        <li title="Cuenta no verificada"><i style="color:#EC7063 ;" 
+                                                                class="fas fa-user-times">  No verificado</i></li>
                                                         @endif
                                                     </ul>
                                                     <!-- Ad Description-->
@@ -228,7 +228,7 @@
                                                                 </li>
                                                                 <li>
                                                                     <span>Edad:</span>
-                                                                    <p>{{$anuncio->edad}}</p>
+                                                                    <p>{{$anuncio->user->edad}}</p>
                                                                 </li>
                                                                 <li>
                                                                     <span>Ciudad:</span>
@@ -236,7 +236,7 @@
                                                                 </li>
                                                                 <li>
                                                                     <span>Teléfono:</span>
-                                                                    <p>{{$anuncio->telefono}}</p>
+                                                                    <p>{{$anuncio->user->telefono}}</p>
                                                                 </li>
 
                                                             </ul>

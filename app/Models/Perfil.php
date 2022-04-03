@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
+use App\Models\Galeria;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Perfil extends Model
 {
@@ -19,4 +20,9 @@ class Perfil extends Model
     public function image(){
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function images(){
+        return $this->morphMany(Galeria::class, 'galeriable');
+    }
+
 }

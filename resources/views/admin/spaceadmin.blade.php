@@ -76,7 +76,6 @@
                                     <span class="badge badge-pill badge-warning float-right">
                                         Ver todas
                                     </span>
-
                                 </a>
                             @endif
 
@@ -125,7 +124,7 @@
 
                             @if($notification->type=="App\Notifications\NotificacionSolicitud")
                             <a class="dropdown-item preview-item"
-                            href="">
+                            href="{{ route('marcar_solicitud_leida', [$notification->id, $notification->data['user_id']]) }}">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-danger">
                                         <i class="fas {{ $notification->data['icon'] }} mx-0"></i>

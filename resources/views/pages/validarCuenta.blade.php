@@ -34,6 +34,7 @@
                  </ul>
              </div>
          @endif
+
              <form method="POST" action="{{route('home.validacionCuenta')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
@@ -43,7 +44,8 @@
                    <span class="invalid-feedback" role="alert">
                        <strong>{{ $message }}</strong>
                    </span>
-               @enderror
+                   @enderror
+
                 </div>
                 <div class="form-group">
                    <label>Foto de ti   </label>
@@ -58,7 +60,7 @@
                       </ul>
                    </div>
 
-                   <input id="foto" class="form-control @error('foto') is-invalid @enderror" type="file" name="foto"  autocomplete="current-foto">
+                   <input id="foto" class="form-control @error('foto') is-invalid @enderror" type="file" name="foto"  autocomplete="current-foto" required>
                    @error('foto')
                    <span class="invalid-feedback" role="alert">
                        <strong>{{ $message }}</strong>

@@ -10,9 +10,9 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class EventoSolicitud
+class EventoVerificacion
 {
-    public $solicitud;
+    public $respuesta;
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
@@ -20,14 +20,16 @@ class EventoSolicitud
      *
      * @return void
      */
-    public function __construct($solicitud,$user_id)
+    public function __construct($respuesta)
     {
-        //
-        $this->solicitud = $solicitud;
-        $this->user_id = $user_id;
+        $this->respuesta = $respuesta;
     }
 
- 
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');

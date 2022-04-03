@@ -17,7 +17,7 @@ class CreateOrdensTable extends Migration
             $table->id();
             $table->string('fecha_orden')->nullable();
             $table->decimal('subtotal')->default(0);
-            $table->string('dni',10);
+            // $table->string('dni',10);
             $table->integer('cantidad_creditos');
             $table->string('nombre_completo');
             $table->string('telefono')->nullable();

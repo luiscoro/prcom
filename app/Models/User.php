@@ -20,6 +20,9 @@ class User extends Authenticatable
     
     public $fillable = [
         'name',
+        'edad',
+        'apellidos',
+        'telefono',
         'email',
         'password',
         'cta_validada',

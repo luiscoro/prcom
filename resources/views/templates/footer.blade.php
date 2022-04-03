@@ -61,7 +61,7 @@
                             <div class="news-content">
                                <a href="{{route('home.terminosCondiciones')}}">Terminos y condiciones</a>
                                <br/>
-                               <a href="mailto:soporte@pasionreal.com">Soporte técnico</a>
+                               <a href="mailto:soporte@pasionreal.com">Soporte técnico: soporte@pasionreal.com</a>
                             </div>
                            
                          </div>
@@ -79,7 +79,7 @@
                             <li><a href="{{route('home.findAllCategorias')}}">Categorías</a></li>
                             <li><a href="{{route('register')}}">Registrarse</a></li>
                             <li><a href="{{route('login')}}">Iniciar sesión</a></li>
-                            <li><a href="mailto:contactanos@pasionreal.com">Contáctanos</a></li>
+                            <li><a href="mailto:contactanos@pasionreal.com">Contáctanos: contactanos@pasionreal.com</a></li>
                             <li><a href="{{route('home.faq')}}">Preguntas frecuentes</a></li>
                              
                             
@@ -96,7 +96,7 @@
     <div class="footer-copyright">
        <div class="container clearfix">
           <!--Copyright-->
-          <div class="copyright text-center">Copyright 2021 © Todos los derechos reservados</div>
+          <div class="copyright text-center">Copyright {{date('Y')}} © Todos los derechos reservados</div>
        </div>
     </div>
  </footer>

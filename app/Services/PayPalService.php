@@ -110,15 +110,17 @@ class PayPalService
 
     public function createOrder($value, $currency, $request)
     {
-        
+    
+        $user = Auth::user();
               $data =  array([
             "idcredito"=>$request['idcredito'],
             "subtotal" => $request['creditos'] * 0.2,
-            "telefono" => $request["telefono"],
+            "telefono" => $user->telefono,
             "cantidad_creditos"=>$request['creditos'],
-            "dni" => $request["dni"],
-            "nombre_completo" => $request["nombre_completo"],
+            "nombre_completo" => $user->name.' '.$user->apellidos,
         ]);
+        // dd($data);
+
 
         session(['data'=>$data]);
 
