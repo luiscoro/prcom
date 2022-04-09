@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class EventoVerificacion
 {
-    public $respuesta;
+    public $respuesta, $user_id;
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
@@ -20,9 +20,10 @@ class EventoVerificacion
      *
      * @return void
      */
-    public function __construct($respuesta)
+    public function __construct($respuesta, $user_id)
     {
         $this->respuesta = $respuesta;
+        $this->user_id = $user_id;
     }
 
     /**

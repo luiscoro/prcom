@@ -22,16 +22,17 @@
     </div>
     @foreach (auth()->user()->unreadNotifications as $notification)
     @if($notification->type=="App\Notifications\NotificacionVerificacion")
+    @if ($loop->first && $notification->data['respuesta']==1)
     <div class="alert alert-success alert-dismissible" role="alert">
         @if($notification->data['respuesta']==1)
-        Felicidades, tu cuenta ha sido verificada con exito.
-        @else
-        Lo sentimos, tu cuenta no ha sido verificada, te recomendamos verificar que el código que enviaste sea el correcto.
+        Felicidades, tu cuenta ha sido verificada con éxito.
         @endif
-        <a href="{{route('marcar_notificacion_leida', [$notification->id]) }}" type="button" class="close" data-dismiss="alert" role="alert">
+        <a href="{{ route('marcar_notificacion_leida', [$notification->id]) }}" type="button" class="close"
+            data-dismiss="alert" role="alert">
             <span aria-button="true">&times;</span>
         </a>
     </div>
+    @endif
     @endif
     @endforeach
     <!-- Small Breadcrumb -->
@@ -57,7 +58,7 @@
                             <div class="profile-detail">
                                 <h6>{{$user->name}}</h6>
                                 <ul class="contact-details">
-                                   
+
                                     <li>
                                         <i class="fa fa-envelope"></i>{{$user->email}}
                                     </li>
@@ -141,7 +142,7 @@
                                             <a>
                                                 <dt><strong>Usuario verificado: </strong></dt>
                                             </a>
-                                           
+
 
                                             <dd>
                                                 {{$user->cta_validada}}
@@ -172,8 +173,8 @@
 
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <label>Edad <span class="color-red">*</span></label>
-                                                    <input name="edad" min="18" max="70" type="number" value="{{$user->edad}}"
-                                                        class="form-control margin-bottom-20">
+                                                    <input name="edad" min="18" max="70" type="number"
+                                                        value="{{$user->edad}}" class="form-control margin-bottom-20">
                                                 </div>
 
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -181,12 +182,13 @@
                                                     <input name="telefono" type="text" value="{{$user->telefono}}"
                                                         class="form-control margin-bottom-20">
                                                 </div>
-                                                
+
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <label>Foto <span class="color-red">*</span></label>
 
                                                     @if(!isset($perfil->image->url))
-                                                    <img style="max-width:40%" src="{{asset('images/user_default.png')}}" alt="foto">
+                                                    <img style="max-width:40%"
+                                                        src="{{asset('images/user_default.png')}}" alt="foto">
                                                     @else
                                                     <img src="{{$perfil->image->url}}" alt="foto">
                                                     @endif
@@ -195,23 +197,27 @@
                                                 </div>
 
                                                 <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                                    <label>Visibilidad de comentarios<span class="color-red">*</span></label>
-                                                    <select class="category form-control" name="estado_comentario" required>
+                                                    <label>Visibilidad de comentarios<span
+                                                            class="color-red">*</span></label>
+                                                    <select class="category form-control" name="estado_comentario"
+                                                        required>
                                                         @if(isset($user->estado_comentar))
-                                                            <option selected disabled>Estado actual: {{$user->estado_comentar}}</option>
-                                                            <option value="1" >Activar comentarios</option>
-                                                            <option value="2" >Desactivar comentarios</option>
-                                                      
-                                                            @endif
-                                                        
+                                                        <option selected disabled>Estado actual:
+                                                            {{$user->estado_comentar}}</option>
+                                                        <option value="1">Activar comentarios</option>
+                                                        <option value="2">Desactivar comentarios</option>
+
+                                                        @endif
+
                                                     </select>
-                                                    
+
                                                 </div>
 
                                             </div>
 
                                             <div class="clearfix"></div>
-                                            <div class="row" style="padding-top:20px; display:flex; justify-content:center;">
+                                            <div class="row"
+                                                style="padding-top:20px; display:flex; justify-content:center;">
                                                 <div class="col-md-4 col-sm-4 col-xs-12 text-right">
                                                     <button type="submit" class="btn btn-theme btn-sm">Actualizar mis
                                                         datos</button>

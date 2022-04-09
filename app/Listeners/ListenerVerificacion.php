@@ -20,13 +20,12 @@ class ListenerVerificacion
         //
     }
 
-   
+
     public function handle($event)
     {
         $user = User::find($event->user_id);
-        
+
         // ->whereNotIn('id',$event->orden->user_id)
-            Notification::send($user, new NotificacionVerificacion($event->respuesta,$event->user_id));
-        
+        Notification::send($user, new NotificacionVerificacion($event->respuesta, $event->user_id));
     }
 }

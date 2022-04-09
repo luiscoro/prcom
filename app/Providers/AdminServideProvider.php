@@ -34,16 +34,16 @@ class AdminServideProvider extends ServiceProvider
         $count_reportes = Reporte::count();
         $ordenes = Orden::all();
         $total = 0;
-        foreach($ordenes as $orden){
+        foreach ($ordenes as $orden) {
             $total = $total + $orden->subtotal;
         }
-        
+
         view()->share([
-            'count_ads'=>$count_ads,
-            'count_orders'=>$count_orders,
-            'count_solicitudes'=>$count_solicitudes,
-            'count_reportes'=>$count_reportes,
-            'ganancias'=>$total
-            ]);
+            'count_ads' => $count_ads,
+            'count_orders' => $count_orders,
+            'count_solicitudes' => $count_solicitudes,
+            'count_reportes' => $count_reportes,
+            'ganancias' => $total
+        ]);
     }
 }

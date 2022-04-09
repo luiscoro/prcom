@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class EventoSolicitud
 {
-    public $solicitud;
+    public $solicitud, $user_id;
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
@@ -20,14 +20,14 @@ class EventoSolicitud
      *
      * @return void
      */
-    public function __construct($solicitud,$user_id)
+    public function __construct($solicitud, $user_id)
     {
         //
         $this->solicitud = $solicitud;
         $this->user_id = $user_id;
     }
 
- 
+
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');

@@ -46,9 +46,15 @@
                 <div class="row">
                     <!-- =-=-=-=-=-=-= Advertizing Sidebar =-=-=-=-=-=-= -->
                     <div class="col-md-2 col-sm-2  hidden-xs hidden-sm  leftbar-stick">
-                        <div class="theiaStickySidebar"> <img alt="" src="{{ asset('images/160x600.png') }}"> </div>
-
+                        <div class="theiaStickySidebar">
+                            @if(isset($arrimages[0]))
+                            <img alt="" src="{{  $arrimages[0] }}">
+                            @else
+                            <img alt="" src={{ asset('images/160x600.png') }}>
+                            @endif
+                        </div>
                     </div>
+
 
                     <!-- Middle Content Area -->
                     <div class="col-md-8 col-xs-12 col-sm-12">
@@ -71,9 +77,10 @@
                                     <ul class="slides slide-main">
                                         @foreach ($anuncio->images as $imagen)
                                         @if(Str::endsWith($imagen->url,'mp4'))
-                                        <li><video src="{{$imagen->url}}" style="max-width: 350px;" autoplay muted loop controls></video></li>
+                                        <li><video src="{{$imagen->url}}" style="max-width: 350px;" autoplay muted loop
+                                                controls></video></li>
                                         @else
-                                       <li><img src="{{$imagen->url}}" alt="foto"></li> 
+                                        <li><img src="{{$imagen->url}}" alt="foto"></li>
                                         @endif
                                         @endforeach
                                     </ul>
@@ -87,7 +94,7 @@
                                         @if(!Str::endsWith($imagen->url,"mp4"))
                                         <li><img alt="foto" draggable="false" src="{{ $imagen->url }}"></li>
                                         @else
-                                        <li><video style="max-width:150px;" src="{{$imagen->url}}" ></video></li>
+                                        <li><video style="max-width:150px;" src="{{$imagen->url}}"></video></li>
                                         @endif
                                         @endforeach
                                         <!-- items mirrored twice, total of 12 -->
@@ -107,23 +114,23 @@
 
 
                             <!-- Share Ad  -->
-                            @if($anuncio->user->estado_comentar=="habilitado") 
+                            @if($anuncio->user->estado_comentar=="habilitado")
                             <div class="ad-share text-center">
                                 <div data-toggle="modal" data-target=".share-ad"
                                     class="ad-box col-md-3 col-sm-3 col-xs-12">
                                     <i class="fa fa-share-alt"></i> <span class="hidetext">Compartir</span>
                                 </div>
-                                <a class="ad-box col-md-3 col-sm-3 col-xs-12" href="tel:+34 {{$anuncio->user->telefono}}"><i
-                                        class="fa fa-phone active"></i>
+                                <a class="ad-box col-md-3 col-sm-3 col-xs-12"
+                                    href="tel:+34 {{$anuncio->user->telefono}}"><i class="fa fa-phone active"></i>
                                     <span class="hidetext">Contactar</span></a>
                                 <div data-target=".report-quote" data-toggle="modal"
                                     class="ad-box col-md-3 col-sm-3 col-xs-12">
                                     <i class="fa fa-warning"></i> <span class="hidetext">Reportar</span>
                                 </div>
                                 <div data-target=".modal-comentar" data-toggle="modal"
-                                class="ad-box col-md-3 col-sm-3 col-xs-12">
-                                <i class="fa fa-comments"></i> <span class="hidetext">Comentar</span>
-                            </div>
+                                    class="ad-box col-md-3 col-sm-3 col-xs-12">
+                                    <i class="fa fa-comments"></i> <span class="hidetext">Comentar</span>
+                                </div>
                             </div>
                             @else
                             <div class="ad-share text-center">
@@ -131,19 +138,19 @@
                                     class="ad-box col-md-4 col-sm-4 col-xs-12">
                                     <i class="fa fa-share-alt"></i> <span class="hidetext">Compartir</span>
                                 </div>
-                                <a class="ad-box col-md-4 col-sm-4 col-xs-12" href="tel:+34 {{$anuncio->user->telefono}}"><i
-                                        class="fa fa-phone active"></i>
+                                <a class="ad-box col-md-4 col-sm-4 col-xs-12"
+                                    href="tel:+34 {{$anuncio->user->telefono}}"><i class="fa fa-phone active"></i>
                                     <span class="hidetext">Contactar</span></a>
                                 <div data-target=".report-quote" data-toggle="modal"
                                     class="ad-box col-md-4 col-sm-4 col-xs-12">
                                     <i class="fa fa-warning"></i> <span class="hidetext">Reportar</span>
                                 </div>
                                 {{-- <div data-target=".modal-comentar" data-toggle="modal"
-                                class="ad-box col-md-3 col-sm-3 col-xs-12">
-                                <i class="fa fa-comments"></i> <span class="hidetext">Comentar</span>
-                            </div> --}}
+                                    class="ad-box col-md-3 col-sm-3 col-xs-12">
+                                    <i class="fa fa-comments"></i> <span class="hidetext">Comentar</span>
+                                </div> --}}
                             </div>
-@endif
+                            @endif
                             <div class="clearfix"></div>
 
                             <!-- Short Description  -->
@@ -188,30 +195,31 @@
                                     @if(count($anuncio->ratings)==0)
                                     <p class="lead">Aún no hay comentarios. Se el primero en comentar.</p>
                                     @else
-                                    
+
                                     @foreach($anuncio->ratings as $rating)
-                                    <div class="col-sm-12 col-md-12 col-xs-12 no-padding" style="display:flex; justify-content:space-between;"> 
+                                    <div class="col-sm-12 col-md-12 col-xs-12 no-padding"
+                                        style="display:flex; justify-content:space-between;">
                                         <div style="text-align: left">
-                                        {{ $rating->created_at }}
-                                         </div>
-                                 
-                                            <div class="rate"  >
+                                            {{ $rating->created_at }}
+                                        </div>
+
+                                        <div class="rate">
                                             @for($i=1; $i<=$rating->rating; $i++)
                                                 <input type="radio" id="star1" name="rate" value="1" />
                                                 <label for="star1" style="color:#ffc700" title="text">1 star</label>
-                                    
-                                            @endfor
+
+                                                @endfor
                                         </div>
-                                       
-                                       
+
+
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
                                         <span><strong>{{$rating->user->name}}</strong>:</span> {{ $rating->comment }}
                                     </div>
-                                   @endforeach
+                                    @endforeach
 
-                                   @endif
+                                    @endif
                                 </div>
 
                             </div>
@@ -222,9 +230,18 @@
 
                     </div>
                     <div class="col-md-2 col-sm-2 hidden-xs hidden-sm rightbar-stick">
-                        <div class="theiaStickySidebar"> <img alt="" src="{{ asset('images/160x600.png') }}"> </div>
+                        <div class="theiaStickySidebar">
+                            <div class="theiaStickySidebar">
+                                @if(isset($arrimages[1]))
+                                <img alt="" src="{{  $arrimages[1] }}">
+                                @else
+                                <img alt="" src={{ asset('images/160x600.png') }}>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <!-- Main Container End -->
+                </div>
+                <!-- Main Container End -->
         </section>
 
         <!-- =-=-=-=-=-=-= Ads Archives End =-=-=-=-=-=-= -->
@@ -263,7 +280,7 @@
                                     </h3>
                                     <ul class="recent-ads-list-location">
                                         <li><a href="#"></a>Ciudad: {{$anuncio->ciudad}}</li>
-                                        <br/>
+                                        <br />
                                         <li><a href="#"></a>Dirección: {{$anuncio->direccion}}</li>
                                     </ul>
                                     <div class="recent-ads-list-price">
@@ -313,7 +330,7 @@
                             <div class="form-group col-md-6 col-sm-6">
                                 <ul class="list">
                                     <li>
-                                        <input type="radio" id="spam"  value="1" name="minimal-radio">
+                                        <input type="radio" id="spam" value="1" name="minimal-radio">
                                         <label for="spam">Spam</label>
                                     </li>
                                     <li>
@@ -327,7 +344,7 @@
                                     <li>
                                         <input type="radio" id="spam" value="3" name="minimal-radio">
                                         <label for="spam">Duplicación de identidad</label>
-                                        
+
                                     </li>
                                 </ul>
                             </div>
@@ -337,9 +354,9 @@
                             <label>Agrega un comentario</label>
                             <textarea name="comentario" placeholder="El contenido del anuncio me pertenece..." rows="3"
                                 class="form-control">El contenido del anuncio me pertenece...</textarea>
-                        <input name="anuncio_id" type="text" value="{{$anuncio->id}}" style="display:none">
-                            </div>
-                        
+                            <input name="anuncio_id" type="text" value="{{$anuncio->id}}" style="display:none">
+                        </div>
+
                         <div class="clearfix"></div>
                         <div class="col-md-12 col-sm-12 margin-bottom-20 margin-top-20">
                             <button type="submit" class="btn btn-theme btn-block">Enviar</button>
@@ -351,7 +368,7 @@
     </div>
 
 
-   @include('components.modalComentar')
+    @include('components.modalComentar')
 
     <!-- SCRIPTS -->
     @include('templates.scripts')

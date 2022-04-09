@@ -22,8 +22,8 @@ use Nette\Utils\Random;
 
 use Illuminate\Support\Str;
 use App\Mail\MensajeRecibido;
-
-
+use App\Models\Publicidad;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -94,25 +94,61 @@ class HomeController extends Controller
         return view('pages.categorias', compact('categorias', 'anuncios'));
     }
 
+    public function randomPublicidad()
+    {
+        $imagenes = Publicidad::all();
+        if ($imagenes == null) {
+            return [];
+        }
+        $imgs = [];
+        $imgs = $this->validarrandomPublicidad();
+        if ($imgs == null) {
+            $this->validarrandomPublicidad();
+        } else {
+            $imagenizq = $imagenes[$imgs[0]]->image->url;
+            $imagender = $imagenes[$imgs[1]]->image->url;
+            $arrimages = [$imagenizq, $imagender];
+
+            return $arrimages;
+        }
+    }
+
+    public function validarrandomPublicidad()
+    {
+        $imgs = [];
+        $imagenes = Publicidad::all();
+        $longimagenes = count($imagenes);
+        $randomnum1 = mt_rand(0, $longimagenes - 1);
+        $randomnum2 = mt_rand(0, $longimagenes - 1);
+        if ($randomnum1 != $randomnum2) {
+            $imgs = [$randomnum1, $randomnum2];
+        } else {
+            $imgs = [];
+        }
+        return $imgs;
+    }
+
     public function detalleAnuncio($id)
     {
+        $arrimages = [];
+        $arrimages = $this->randomPublicidad();
         $anuncio = Anuncio::findOrFail($id);
         $categorias2 = Categoria::all();
 
-        return view('pages.detalleAnuncio', compact('anuncio', 'categorias2'));
+        return view('pages.detalleAnuncio', compact('anuncio', 'categorias2', 'arrimages'));
     }
 
-//REGISTRO DE CUENTA
+    //REGISTRO DE CUENTA
     protected function postValidarCuenta(Request $request)
-{
+    {
         $campos = [
             'password' => 'required|string|min:8',
             'email' => 'required|unique:users|email|min:8',
             'name' => 'required|min:3',
             'apellidos' => 'required',
             'fecha_nacimiento' => 'required',
-            'telefono'=>'required|min:9|max:9'
-            
+            'telefono' => 'required|min:9|max:9'
+
         ];
         $advertencia = [
             'required' => 'El :attribute es requerido',
@@ -120,10 +156,10 @@ class HomeController extends Controller
             'password.min' => 'La contraseña debe tener un mínimo de 8 caracteres',
             'min' => 'El :attribute no debe tener menos de :min caracteres',
             'password.required' => 'La contraseña es requerida',
-            'fecha_nacimiento'=>'La fecha de nacimiento es requerida',
-            'telefono.required'=>'El número de móvil es requerido',
-            'telefono.min'=>'El número de móvil debe tener 9 digitos',
-            'telefono.max'=>'El número de móvil debe tener 9 digitos',
+            'fecha_nacimiento' => 'La fecha de nacimiento es requerida',
+            'telefono.required' => 'El número de móvil es requerido',
+            'telefono.min' => 'El número de móvil debe tener 9 digitos',
+            'telefono.max' => 'El número de móvil debe tener 9 digitos',
             'email.required' => 'El correo es necesario',
             'name.required' => 'El nombre es requerido y debe tener mas de 3 caracteres',
             'apellidos.required' => 'Los apellidos es requerido',
@@ -138,21 +174,20 @@ class HomeController extends Controller
 
         //calculo de la edad de la persona
         $edad = Carbon::parse($request->fecha_nacimiento)->age;
-        if ($edad<18)
+        if ($edad < 18)
             return back()->with('advertencia', 'Lo sentimos la edad mínima es 18 años.');
 
         $user = User::create([
             'name' => $request['name'],
-            'apellidos'=>$request->apellidos,
+            'apellidos' => $request->apellidos,
             'email' => $request['email'],
-            'edad'=>$edad,
-            'telefono'=>$request->telefono,
+            'edad' => $edad,
+            'telefono' => $request->telefono,
             'password' => Hash::make($request['password']),
         ]);
         //asignamos un rol de cliente al usuario que se registre
         $user->assignRole('Client');
-        $user->perfil()->create([
-        ]); //creamos el perfil vacio
+        $user->perfil()->create([]); //creamos el perfil vacio
         Auth::login($user);
         //generamos el codigo random
 
@@ -175,13 +210,14 @@ class HomeController extends Controller
         $user_id = Auth::id();
         $user = User::find($user_id);
         $email = $user->email;
-        Mail::to( $email = $user->email)->send(new MensajeRecibido($key));//enviamos el mail al correo del cliente que se registro
-      
+        Mail::to($email = $user->email)->send(new MensajeRecibido($key)); //enviamos el mail al correo del cliente que se registro
+
         session()->put('key', $key);
         return view('pages.validarCuenta');
     }
 
-    public function upload_imageSolicitud($request, $solicitud){
+    public function upload_imageSolicitud($request, $solicitud)
+    {
         $file = request()->file('foto');
         $name = time() . '_' . $file->getClientOriginalName();
         $ruta = public_path() . '/imgs/solicitudes';
@@ -197,60 +233,63 @@ class HomeController extends Controller
         //si decide validar la cuenta, creamos la solicitud para que sea validada por el admin
         $url = "";
         $datosValidacion = request()->except('_token');
-      
-        if ($request->hasFile('foto')){
+
+        if ($request->hasFile('foto')) {
             $this->validate($request, [
                 'foto' => 'required',
                 'foto' => 'image|mimes:png,jpg,jpeg|dimensions:min_width=800,min_height=200,max_width:1800,max_height:600|max:5000',
-            ],[
-                'foto.required'=>'La foto es requerida',
-                'foto.image'=>'El archivo tienen que ser una imagen',
-                'foto.mimes'=>'La foto debe ser tipo png, jpg o jpeg',
-                'foto.dimensions'=>'La foto no cumple con las dimensiones 800x200 mínimo; 1800x600 máximo',
-                'foto.max'=>'La foto supera el peso permitido (5Megabytes)'
+            ], [
+                'foto.required' => 'La foto es requerida',
+                'foto.image' => 'El archivo tienen que ser una imagen',
+                'foto.mimes' => 'La foto debe ser tipo png, jpg o jpeg',
+                'foto.dimensions' => 'La foto no cumple con las dimensiones 800x200 mínimo; 1800x600 máximo',
+                'foto.max' => 'La foto supera el peso permitido (5Megabytes)'
             ]);
-            
-        // $solicitud = Solicitud::create([
-        //     'user_id' => Auth::id(),
-        //     'codigo_generado' => session('key'),
-        //     'codigo_enviado' => $request['codigo_enviado'],
-        // ]);
-        
-       
-        //     $this->upload_imageSolicitud($request, $solicitud);
-        //  }
 
-        if ($request->hasFile('foto')) {
-            $file = $request['foto'];
-            $elemento = Cloudinary::upload($file->getRealPath(), ['folder' => 'solicitudes']);
-            $public_id = $elemento->getPublicId();
-            $url = $elemento->getSecurePath();
+            // $solicitud = Solicitud::create([
+            //     'user_id' => Auth::id(),
+            //     'codigo_generado' => session('key'),
+            //     'codigo_enviado' => $request['codigo_enviado'],
+            // ]);
+
+
+            //     $this->upload_imageSolicitud($request, $solicitud);
+            //  }
+
+            if ($request->hasFile('foto')) {
+                $file = $request['foto'];
+                $elemento = Cloudinary::upload($file->getRealPath(), ['folder' => 'solicitudes']);
+                $public_id = $elemento->getPublicId();
+                $url = $elemento->getSecurePath();
+            }
+
+            $solicitud = Solicitud::create([
+                'user_id' => Auth::id(),
+                'codigo_generado' => $request['key'],
+                'codigo_enviado' => $request['codigo_enviado'],
+            ]);
+            $solicitud->image()->create([
+                "url" => $url,
+                "public_id" => $public_id
+            ]);
+            $user_id = Auth::id();
+            Solicitud::make_solicitud_notification($solicitud, $user_id);
+            return redirect()->route('cliente.miCuenta')->with('mensaje', 'Solicitud de registro enviada. Por la comodidad y bienestar de nuestros usuarios PassionReal se tomará unos minutos hasta validar sus datos.');
         }
-
-        $solicitud = Solicitud::create([
-            'user_id' => Auth::id(),
-            'codigo_generado' => $request['key'],
-            'codigo_enviado' => $request['codigo_enviado'],
-        ]);
-        $solicitud->image()->create([
-            "url" => $url,
-            "public_id" => $public_id
-        ]);
-        Solicitud::make_solicitud_notification($solicitud);
-        return redirect()->route('cliente.miCuenta')->with('mensaje', 'Solicitud de registro enviada. Por la comodidad y bienestar de nuestros usuarios PassionReal se tomará unos minutos hasta validar sus datos.');
     }
-}
 
     public function cuentaBaneada()
     {
         return view('pages.cuentaBaneada');
     }
 
-    public function preguntasFrecuentes(){
+    public function preguntasFrecuentes()
+    {
         return view('pages.preguntasFrecuentes');
     }
 
-    public function terminosCondiciones(){
+    public function terminosCondiciones()
+    {
         return view('pages.terminosCondiciones');
     }
 }

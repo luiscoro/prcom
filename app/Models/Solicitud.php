@@ -9,21 +9,24 @@ use App\Models\Image;
 
 class Solicitud extends Model
 {
-    protected  $fillable =[
-    "user_id",
-    "codigo_generado",
-    "codigo_enviado",
+    protected  $fillable = [
+        "user_id",
+        "codigo_generado",
+        "codigo_enviado",
     ];
-    
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function image(){
+    public function image()
+    {
         return $this->morphOne(Image::class, 'imageable');
     }
     //===== FUNCION PARA NOTIFICACION A DB Y EMAIL DE VALIDACION DE CUENTA ======//
-    public static function make_solicitud_notification($solicitud){
-        event(new EventoSolicitud($solicitud));
-     }
+    public static function make_solicitud_notification($solicitud, $user_id)
+    {
+        event(new EventoSolicitud($solicitud, $user_id));
+    }
 }

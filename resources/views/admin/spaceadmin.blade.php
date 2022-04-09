@@ -44,7 +44,7 @@
                                     </span> --}}
                                 </div>
                                 {{-- <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar">
-                           --}}
+                                --}}
                             </div>
                         </div>
                     </li>
@@ -69,21 +69,21 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                             aria-labelledby="notificationDropdown">
                             @if (auth()->user()->unreadNotifications->count() > 0)
-                                <a class="dropdown-item" href="{{ route('notificacion.todas') }}">
-                                    <p class="mb-0 font-weight-normal float-left">Tienes
-                                        {{ auth()->user()->unreadNotifications->count() }} nuevas notificaciones</p>
+                            <a class="dropdown-item" href="{{ route('notificacion.todas') }}">
+                                <p class="mb-0 font-weight-normal float-left">Tienes
+                                    {{ auth()->user()->unreadNotifications->count() }} nuevas notificaciones</p>
 
-                                    <span class="badge badge-pill badge-warning float-right">
-                                        Ver todas
-                                    </span>
-                                </a>
+                                <span class="badge badge-pill badge-warning float-right">
+                                    Ver todas
+                                </span>
+                            </a>
                             @endif
 
                             @foreach (auth()->user()->unreadNotifications as $notification)
                             <div class="dropdown-divider"></div>
                             @if($notification->type=="App\Notifications\NotificacionOrden")
                             <a class="dropdown-item preview-item"
-                            href="{{ route('marcar_una_leida', [$notification->id, $notification->data['id']]) }}">
+                                href="{{ route('marcar_una_leida', [$notification->id, $notification->data['id']]) }}">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-danger">
                                         <i class="fas {{ $notification->data['icon'] }} mx-0"></i>
@@ -100,12 +100,12 @@
                                     </p>
                                 </div>
                             </a>
-                        
+
                             @endif
 
                             @if($notification->type=="App\Notifications\NotificacionReporte")
                             <a class="dropdown-item preview-item"
-                            href="{{ route('marcar_un_reporte_leido', [$notification->id, $notification->data['id']]) }}">
+                                href="{{ route('marcar_un_reporte_leido', [$notification->id, $notification->data['id']]) }}">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-danger">
                                         <i class="fas {{ $notification->data['icon'] }} mx-0"></i>
@@ -116,7 +116,8 @@
                                         Reporte de anuncio
                                     </h6>
                                     <p class="font-weight-light small-text">
-                                        El anuncio #{{ $notification->data['anuncio_id'] }} : {{$notification->data['titulo']}} fue reportado. 
+                                        El anuncio #{{ $notification->data['anuncio_id'] }} :
+                                        {{$notification->data['titulo']}} fue reportado.
                                     </p>
                                 </div>
                             </a>
@@ -124,7 +125,7 @@
 
                             @if($notification->type=="App\Notifications\NotificacionSolicitud")
                             <a class="dropdown-item preview-item"
-                            href="{{ route('marcar_solicitud_leida', [$notification->id, $notification->data['user_id']]) }}">
+                                href="{{ route('marcar_solicitud_leida', [$notification->id, $notification->data['user_id']]) }}">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-danger">
                                         <i class="fas {{ $notification->data['icon'] }} mx-0"></i>
@@ -135,14 +136,15 @@
                                         Solitud
                                     </h6>
                                     <p class="font-weight-light small-text">
-                                        El usuario # {{ $notification->data['user_id'] }}, {{$notification->data['nombre']}} solicita que su cuenta sea verificada. 
+                                        El usuario # {{ $notification->data['user_id'] }},
+                                        {{$notification->data['nombre']}} solicita que su cuenta sea verificada.
                                     </p>
                                 </div>
                             </a>
                             @endif
-                           
-                        @endforeach
-                          
+
+                            @endforeach
+
                             {{-- <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
@@ -236,9 +238,9 @@
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                             @if (!isset(auth()->user()->perfil->image->url))
-                                <img style="max-width:150px;" src="{{ asset('images/user_default.png') }}" alt="foto">
+                            <img style="max-width:150px;" src="{{ asset('images/user_default.png') }}" alt="foto">
                             @else
-                                <img src="{{ auth()->user()->perfil->image->url }}" alt="profile" />
+                            <img src="{{ auth()->user()->perfil->image->url }}" alt="profile" />
                             @endif
 
                         </a>
@@ -255,10 +257,9 @@
                                 Salir
                             </a>
                         </div>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                        class="d-none">
-                        @csrf
-                    </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </li>
                     {{-- <li class="nav-item nav-settings d-none d-lg-block">
                         <a class="nav-link" href="#">
@@ -274,7 +275,7 @@
         </nav>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-           
+
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
@@ -283,10 +284,9 @@
                             <div class="profile-image">
 
                                 @if (!isset(auth()->user()->perfil->image->url))
-                                    <img style="max-width:150px;" src="{{ asset('images/user_default.png') }}"
-                                        alt="foto">
+                                <img style="max-width:150px;" src="{{ asset('images/user_default.png') }}" alt="foto">
                                 @else
-                                    <img src="{{ auth()->user()->perfil->image->url }}" alt="profile" />
+                                <img src="{{ auth()->user()->perfil->image->url }}" alt="profile" />
                                 @endif
                             </div>
                             <div class="profile-name">
@@ -307,8 +307,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  href="{{route('cliente.miCuenta')}}" 
-                            aria-controls="page-layouts">
+                        <a class="nav-link" href="{{route('cliente.miCuenta')}}" aria-controls="page-layouts">
                             <i class="fab fa-trello menu-icon"></i>
                             <span class="menu-title">Mi cuenta</span>
 
@@ -326,8 +325,8 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                         href="{{ route('categoria.create') }}">Agregar categoría</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{ route('categoria.index') }}">Ver categorías</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ route('categoria.index') }}">Ver
+                                        categorías</a></li>
 
                             </ul>
                         </div>
@@ -344,8 +343,8 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item d-none d-lg-block"><a class="nav-link"
                                         href="{{ route('paquete.create') }}">Agregar paquete</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{ route('paquete.index') }}">Ver paquetes</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ route('paquete.index') }}">Ver
+                                        paquetes</a></li>
 
                             </ul>
                         </div>
@@ -406,8 +405,8 @@
                         </a>
                         <div class="collapse" id="page-layouts6">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{route('notificacion.todas')}}">Ver todas</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('notificacion.todas')}}">Ver
+                                        todas</a></li>
 
                             </ul>
                         </div>
@@ -423,18 +422,39 @@
                         </a>
                         <div class="collapse" id="page-layouts8">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{route('miembro.create')}}">Agregar miembro</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('miembro.create')}}">Agregar
+                                        miembro</a></li>
 
                             </ul>
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{route('miembro.index')}}">Ver miembros</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('miembro.index')}}">Ver
+                                        miembros</a></li>
 
                             </ul>
                         </div>
                     </li>
 
-                
 
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#page-layouts9" aria-expanded="false"
+                            aria-controls="page-layouts">
+                            <i class="fas fa-user-tag menu-icon"></i>
+                            <span class="menu-title">Publicidades</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="page-layouts9">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('publicidad.create')}}">Agregar
+                                        publicidad</a></li>
+
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('publicidad.index')}}">Ver
+                                        publicidades</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
 
 
                 </ul>
@@ -446,92 +466,93 @@
                     <div class="row grid-margin">
 
                         <div class="col-12">
-                          <div class="card card-statistics">
-                            <div class="card-body">
-                              <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                                  <div class="statistics-item">
-                                    <p>
-                                      <i class="icon-sm fa fa-user mr-2"></i>
-                                      # Usuarios
-                                    </p>
-                                    <h2>{{$count_users}}</h2>
-                                 
-                                  </div>
-                                  <div class="statistics-item">
-                                    <p>
-                                      <i class="icon-sm fas fa-hourglass-half mr-2"></i>
-                                      # Anuncios
-                                    </p>
-                                    <h2>{{$count_ads}}</h2>
-                                  </div>
-                                  <div class="statistics-item">
-                                    <p>
-                                      <i class="icon-sm fas fa-chart-line mr-2"></i>
-                                      Ganancias
-                                    </p>
-                                    <h2>{{$ganancias}} </h2>
-                                  </div>
-                                  <div class="statistics-item">
-                                    <p>
-                                      <i class="icon-sm fas fa-check-circle mr-2"></i>
-                                      # Reportes de cuenta
-                                    </p>
-                                    <h2>{{$count_reportes}}</h2>
-                                  </div>
-                                  <div class="statistics-item">
-                                    <p>
-                                      <i class="icon-sm fas fa-chart-line mr-2"></i>
-                                      Ordenes
-                                    </p>
-                                    <h2>{{$count_orders}}</h2>
-                                 </div>
-                                  <div class="statistics-item">
-                                    <p>
-                                      <i class="icon-sm fas fa-circle-notch mr-2"></i>
-                                      Solicitudes pendientes
-                                    </p>
-                                    @php
-                                   $noleidas =  auth()->user()->unreadNotifications;
-                                   $cont = 0;
-                                   foreach($noleidas as $nl){
-                                       if($nl->type=="App\Notifications\NotificacionSolicitud")
-                                    $cont = $cont + 1;
-                                   }
-                                    @endphp
-                                    <h2>{{$cont}}</h2>
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                            <div class="card card-statistics">
+                                <div class="card-body">
+                                    <div
+                                        class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                                        <div class="statistics-item">
+                                            <p>
+                                                <i class="icon-sm fa fa-user mr-2"></i>
+                                                # Usuarios
+                                            </p>
+                                            <h2>{{$count_users}}</h2>
 
-                      {{-- <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
-                          <div class="card">
-                            <div class="card-body">
-                              <h4 class="card-title">
-                                <i class="fas fa-gift"></i>
-                                Ordenes
-                              </h4>
-                              <canvas id="orders-chart"></canvas>
-                              <div id="orders-chart-legend" class="orders-chart-legend"></div>                  
+                                        </div>
+                                        <div class="statistics-item">
+                                            <p>
+                                                <i class="icon-sm fas fa-hourglass-half mr-2"></i>
+                                                # Anuncios
+                                            </p>
+                                            <h2>{{$count_ads}}</h2>
+                                        </div>
+                                        <div class="statistics-item">
+                                            <p>
+                                                <i class="icon-sm fas fa-chart-line mr-2"></i>
+                                                Ganancias
+                                            </p>
+                                            <h2>{{$ganancias}} </h2>
+                                        </div>
+                                        <div class="statistics-item">
+                                            <p>
+                                                <i class="icon-sm fas fa-check-circle mr-2"></i>
+                                                # Reportes de cuenta
+                                            </p>
+                                            <h2>{{$count_reportes}}</h2>
+                                        </div>
+                                        <div class="statistics-item">
+                                            <p>
+                                                <i class="icon-sm fas fa-chart-line mr-2"></i>
+                                                Ordenes
+                                            </p>
+                                            <h2>{{$count_orders}}</h2>
+                                        </div>
+                                        <div class="statistics-item">
+                                            <p>
+                                                <i class="icon-sm fas fa-circle-notch mr-2"></i>
+                                                Solicitudes pendientes
+                                            </p>
+                                            @php
+                                            $noleidas = auth()->user()->unreadNotifications;
+                                            $cont = 0;
+                                            foreach($noleidas as $nl){
+                                            if($nl->type=="App\Notifications\NotificacionSolicitud")
+                                            $cont = $cont + 1;
+                                            }
+                                            @endphp
+                                            <h2>{{$cont}}</h2>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
+                        </div>
+                    </div>
+
+                    {{-- <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <i class="fas fa-gift"></i>
+                                        Ordenes
+                                    </h4>
+                                    <canvas id="orders-chart"></canvas>
+                                    <div id="orders-chart-legend" class="orders-chart-legend"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 grid-margin stretch-card">
-                          <div class="card">
-                            <div class="card-body">
-                              <h4 class="card-title">
-                                <i class="fas fa-chart-line"></i>
-                               Ventas
-                              </h4>
-                              <h2 class="mb-5">0 <span class="text-muted h4 font-weight-normal">Ventas</span></h2>
-                              <canvas id="sales-chart"></canvas>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <i class="fas fa-chart-line"></i>
+                                        Ventas
+                                    </h4>
+                                    <h2 class="mb-5">0 <span class="text-muted h4 font-weight-normal">Ventas</span></h2>
+                                    <canvas id="sales-chart"></canvas>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div> --}}
+                    </div> --}}
 
                     @yield('contenido')
                 </div>
